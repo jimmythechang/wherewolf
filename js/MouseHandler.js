@@ -1,5 +1,5 @@
 /**
- * A class for handling mouse input.
+ * A class for handling mouse input. Takes a reference to a GlobalManager.
  */
 
 function MouseHandler() {
@@ -10,6 +10,7 @@ function MouseHandler() {
     this.init = init;
     function init() {
         this._trackMousePosition();
+        this._bindClick();
     }
 
     this._trackMousePosition = _trackMousePosition;
@@ -29,12 +30,25 @@ function MouseHandler() {
         var xPos = "x: " + this.x;
         var yPos = "y: " + this.y;
 
-        $('#debug').text(xPos + " " + yPos);
+        $('#positionDebug').text(xPos + " " + yPos);
     }
 
-    this._trackClick = _trackClick;
-    function _trackClick() {
-        
+    /**
+     * Determine if the player has clicked on a Citizen. Makes a call
+     * to the DrawManager for that information.
+     */
+
+    this._bindClick = _bindClick;
+    function _bindClick() {
+        $('#canvas').click(function(e) {
+            var drawManager = window.globalManager.drawManager;
+            if (drawManager.determinesCitizenIsClicked(e.pageX, e.pageY)) {
+                $('#clickDebug').text("Citizen clicked!");
+            }
+            else {
+                $('#clickDebug').text("Nothing but air!");
+            }
+        })
     }
 
 }

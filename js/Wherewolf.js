@@ -1,15 +1,18 @@
-require(["jquery", "GlobalHandler", "MouseHandler", "Citizen"], function($) {
+var requireArr = ["jquery", "GlobalManager", "MouseHandler", "DrawManager", "Citizen"];
+
+require(requireArr, function($) {
     $(document).ready( function() {
-        var globalHandler = new GlobalHandler();
-        globalHandler.init();
+        var gm = new GlobalManager();
+        gm.init();
 
-        var mouseHandler = new MouseHandler();
-        mouseHandler.init();
+        var citizen = new Citizen(100, 200, '#FF1234', gm.ctx);
+        var citizen2 = new Citizen(300, 450, '#ABCD33', gm.ctx);
 
-        var citizen = new Citizen(100, 200, '#FF1234');
-        var citizen2 = new Citizen(300, 450, '#ABCD33');
-        citizen.draw();
-        citizen2.draw();
+        gm.drawManager.registerCitizen(citizen);
+        gm.drawManager.registerCitizen(citizen2);
+
+        gm.drawManager.drawCitizens();
+
     });
 
 });

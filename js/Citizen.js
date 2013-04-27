@@ -2,7 +2,7 @@
  * A class for handling the display and logic for a Citizen.
  */
 
-function Citizen(x, y, color) {
+function Citizen(x, y, color, context) {
     
     // We'll start with colored rectangles for now.
     this.x = x;
@@ -11,8 +11,7 @@ function Citizen(x, y, color) {
     this.h = 75;
     this.color = color;
 
-    this.ctx = window.canvas.getContext("2d");
-
+    this.ctx = context;
 
     this.draw = draw;
     function draw() {
