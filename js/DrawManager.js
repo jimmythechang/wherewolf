@@ -42,9 +42,9 @@ function DrawManager() {
             var citizen = this.citizenArray[i];
 
             var leftBound = citizen.x;
-            var rightBound = citizen.x + citizen.w;
+            var rightBound = citizen.x + citizen.image.width;
             var upperBound = citizen.y;
-            var lowerBound = citizen.y + citizen.h;
+            var lowerBound = citizen.y + citizen.image.height;
 
             if (mouseX > leftBound &&
                 mouseX <= rightBound &&

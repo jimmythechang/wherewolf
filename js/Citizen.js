@@ -4,25 +4,34 @@
 
 require(["Textbox"]);
 
-function Citizen(x, y, color, context) {
+function Citizen(x, y, imageSrc, statement) {
 
-    // We'll start with colored rectangles for now.
     this.x = x;
     this.y = y;
-    this.w = 150;
-    this.h = 75;
-    this.color = color;
+
+    this.image = new Image();
+    this.imageLoaded = false;
+
+    var citizen = this;
+    this.image.onload = function() {
+        citizen.imageLoaded = true;
+    }
+    this.image.src = imageSrc;
+
+    this.statement = statement;
 
     // Indicates if the Citizen has a Textbox open.
     this.isTalking = false;
     this.textbox = new Textbox(this);
 
-    this.ctx = context;
-
     this.draw = draw;
     function draw() {
-        this.ctx.fillStyle = color;
-        this.ctx.fillRect(this.x, this.y, this.w, this.h);
+        if (this.imageLoaded) {
+            window.globalManager.ctx.drawImage(this.image, this.x, this.y);
+        }
+        else {
+            return;
+        }
 
         if (this.isTalking) {
             this.textbox.draw();
