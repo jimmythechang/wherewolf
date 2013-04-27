@@ -8,7 +8,7 @@
     <body>
         <canvas id="canvas" height="600" width="800" style="border: 1px solid #000">
         </canvas>
-        <span id="positionDebug"></span><span id="clickDebug"></span>
+        <div id="positionDebug"></div><div id="clickDebug"></div>
 
     </body>
 </html>

@@ -14,4 +14,10 @@ function GlobalManager() {
         this.mouseHandler = new MouseHandler(this);
         this.mouseHandler.init();
     }
+
+
+    this.gameLoop = gameLoop;
+    function gameLoop() {
+        this.drawManager.draw();
+    }
 }

@@ -1,4 +1,4 @@
-var requireArr = ["jquery", "GlobalManager", "MouseHandler", "DrawManager", "Citizen"];
+var requireArr = ["jquery", "GlobalManager", "MouseHandler", "DrawManager", "Textbox", "Citizen"];
 
 require(requireArr, function($) {
     $(document).ready( function() {
@@ -11,8 +11,7 @@ require(requireArr, function($) {
         gm.drawManager.registerCitizen(citizen);
         gm.drawManager.registerCitizen(citizen2);
 
-        gm.drawManager.drawCitizens();
-
+        window.setInterval(function() { gm.gameLoop(); }, 1000 / 30);
     });
 
 });

@@ -3,7 +3,6 @@
  */
 
 function MouseHandler() {
-
     this.x = 0;
     this.y = 0;
 
@@ -17,10 +16,21 @@ function MouseHandler() {
     function _trackMousePosition() {
         var mouseHandler = this;
 
+        var drawManager = window.globalManager.drawManager;
+
         $('#canvas').mousemove(function (e) {
+           if (drawManager.determinesCitizenIsInRange(e.pageX, e.pageY)) {
+                drawManager.targetedCitizen.talk();
+           }
+           else {
+               if (drawManager.targetedCitizen != null) {
+                   drawManager.targetedCitizen.shutUp();
+               }
+           }
+           
+           // For debugging.
            mouseHandler.x = e.pageX;
            mouseHandler.y = e.pageY;
-
            mouseHandler._displayMousePosition();
         });
     }
@@ -42,7 +52,7 @@ function MouseHandler() {
     function _bindClick() {
         $('#canvas').click(function(e) {
             var drawManager = window.globalManager.drawManager;
-            if (drawManager.determinesCitizenIsClicked(e.pageX, e.pageY)) {
+            if (drawManager.determinesCitizenIsInRange(e.pageX, e.pageY)) {
                 $('#clickDebug').text("Citizen clicked!");
             }
             else {

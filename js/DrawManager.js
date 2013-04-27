@@ -6,6 +6,20 @@
 
 function DrawManager() {
     this.citizenArray = [];
+    this.targetedCitizen = null;
+
+    this.draw = draw;
+    function draw() {
+        this.clearScreen();
+        this.drawCitizens();
+    }
+
+    this.clearScreen = clearScreen;
+    function clearScreen() {
+        var ctx = window.globalManager.ctx;
+        ctx.clearRect(0, 0, 800, 600);
+    }
+
 
     this.registerCitizen = registerCitizen;
     function registerCitizen(citizen) {
@@ -19,8 +33,8 @@ function DrawManager() {
         }
     }
 
-    this.determinesCitizenIsClicked = determinesCitizenIsClicked;
-    function determinesCitizenIsClicked(mouseX, mouseY) {
+    this.determinesCitizenIsInRange = determinesCitizenIsInRange;
+    function determinesCitizenIsInRange(mouseX, mouseY) {
         // Iterate through the citizen array, and determine if the
         // mouse has clicked within the boundaries of a citizen.
 
@@ -36,6 +50,7 @@ function DrawManager() {
                 mouseX <= rightBound &&
                 mouseY > upperBound &&
                 mouseY <= lowerBound) {
+                    this.targetedCitizen = citizen;
                     return true;
             }
         }
