@@ -50,9 +50,34 @@ function DrawManager() {
                 mouseX <= rightBound &&
                 mouseY > upperBound &&
                 mouseY <= lowerBound) {
-                    this.targetedCitizen = citizen;
-                    return true;
+                    return this.solidPixelTargeted(mouseX, mouseY, citizen);
+                    //this.targetedCitizen = citizen;
+                    //return true;
             }
+        }
+
+        return false;
+    }
+
+    /**
+     * Determine if the player is hovering over/clicking a solid pixel.
+     */
+    this.solidPixelTargeted = solidPixelTargeted;
+    function solidPixelTargeted(mouseX, mouseY, citizen) {
+        var imageWidth = citizen.image.width;
+        var imageData = citizen.imageData;
+
+        // Subtract the offset of where the Citizen's been placed
+        // on the canvas. 
+        mouseX -= citizen.x;
+        mouseY -= citizen.y;
+
+        var alpha = imageData.data[(mouseY*imageWidth+mouseX)*4+3];
+        $('#alphaDebug').text("Pixel alpha: " + alpha);
+
+        if (alpha > 0) {
+            this.targetedCitizen = citizen;
+            return true;
         }
 
         return false;

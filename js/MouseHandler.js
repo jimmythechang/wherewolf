@@ -6,6 +6,9 @@ function MouseHandler() {
     this.x = 0;
     this.y = 0;
 
+    this.canvasXOffset = 8;
+    this.canvasYOffset = 8;
+
     this.init = init;
     function init() {
         this._trackMousePosition();
@@ -14,12 +17,17 @@ function MouseHandler() {
 
     this._trackMousePosition = _trackMousePosition;
     function _trackMousePosition() {
-        var mouseHandler = this;
+        var thisMouseHandler = this;
 
         var drawManager = window.globalManager.drawManager;
 
         $('#canvas').mousemove(function (e) {
-           if (drawManager.determinesCitizenIsInRange(e.pageX, e.pageY)) {
+           // For debugging.
+           thisMouseHandler.x = e.pageX - this.canvasXOffset;
+           thisMouseHandler.y = e.pageY - this.canvasYOffset;
+           thisMouseHandler._displayMousePosition();
+
+           if (drawManager.determinesCitizenIsInRange(thisMouseHandler.x, thisMouseHandler.y)) {
                 drawManager.targetedCitizen.talk();
            }
            else {
@@ -27,11 +35,6 @@ function MouseHandler() {
                    drawManager.targetedCitizen.shutUp();
                }
            }
-           
-           // For debugging.
-           mouseHandler.x = e.pageX;
-           mouseHandler.y = e.pageY;
-           mouseHandler._displayMousePosition();
         });
     }
 
@@ -50,9 +53,11 @@ function MouseHandler() {
 
     this._bindClick = _bindClick;
     function _bindClick() {
+        var thisMouseHandler = this;
+
         $('#canvas').click(function(e) {
             var drawManager = window.globalManager.drawManager;
-            if (drawManager.determinesCitizenIsInRange(e.pageX, e.pageY)) {
+            if (drawManager.determinesCitizenIsInRange(thisMouseHandler.x, thisMouseHandler.y)) {
                 $('#clickDebug').text("Citizen clicked!");
             }
             else {

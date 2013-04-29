@@ -9,12 +9,16 @@ function Citizen(x, y, imageSrc, statement) {
     this.x = x;
     this.y = y;
 
+    // Contains the pixel data in the image used
+    // for the citizen.
+    this.imageData = null;
+
     this.image = new Image();
     this.imageLoaded = false;
-
-    var citizen = this;
+    var thisCitizen = this;
     this.image.onload = function() {
-        citizen.imageLoaded = true;
+        thisCitizen.imageLoaded = true;
+        thisCitizen.imageData = getImageData(this);
     }
     this.image.src = imageSrc;
 
@@ -50,6 +54,17 @@ function Citizen(x, y, imageSrc, statement) {
         this.isTalking = false;
     }
 
+}
 
+// A helper function that returns the pixel data for a given image.
+function getImageData(image) {
+    var personalCanvas = document.createElement("canvas");
+    personalCanvas.width = image.width;
+    personalCanvas.height = image.height;
 
+    var ctx = personalCanvas.getContext("2d");
+    ctx.drawImage(image, 0, 0);
+    var data = ctx.getImageData(0, 0 , image.width, image.height);
+
+    return data;
 }
