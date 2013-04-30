@@ -37,9 +37,11 @@ function Citizen(x, y, imageSrc, statement) {
             return;
         }
 
+        /*
         if (this.isTalking) {
             this.textbox.draw();
         }
+        */
     }
 
     this.talk = talk;
