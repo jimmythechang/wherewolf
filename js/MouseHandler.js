@@ -23,8 +23,8 @@ function MouseHandler() {
 
         $('#canvas').mousemove(function (e) {
            // For debugging.
-           thisMouseHandler.x = e.pageX - this.canvasXOffset;
-           thisMouseHandler.y = e.pageY - this.canvasYOffset;
+           thisMouseHandler.x = e.pageX - thisMouseHandler.canvasXOffset;
+           thisMouseHandler.y = e.pageY - thisMouseHandler.canvasYOffset;
            thisMouseHandler._displayMousePosition();
 
            if (drawManager.determinesCitizenIsInRange(thisMouseHandler.x, thisMouseHandler.y)) {
