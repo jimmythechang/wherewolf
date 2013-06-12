@@ -2,7 +2,6 @@
  * A class for handling the display and logic for a Citizen.
  */
 
-require(["Textbox"]);
 
 function Citizen(x, y, imageSrc, statement) {
 
@@ -26,7 +25,7 @@ function Citizen(x, y, imageSrc, statement) {
 
     // Indicates if the Citizen has a Textbox open.
     this.isTalking = false;
-    this.textbox = new Textbox(this);
+
 
     this.draw = draw;
     function draw() {
@@ -37,11 +36,11 @@ function Citizen(x, y, imageSrc, statement) {
             return;
         }
 
-        /*
+        
         if (this.isTalking) {
-            this.textbox.draw();
+            window.globalManager.textbox.draw();
         }
-        */
+        
     }
 
     this.talk = talk;

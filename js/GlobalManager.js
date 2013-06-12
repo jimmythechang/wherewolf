@@ -13,6 +13,8 @@ function GlobalManager() {
 
         this.mouseHandler = new MouseHandler(this);
         this.mouseHandler.init();
+
+        this.textbox = new Textbox();
     }
 
 

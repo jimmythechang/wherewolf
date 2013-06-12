@@ -28,7 +28,8 @@ function MouseHandler() {
            thisMouseHandler._displayMousePosition();
 
            if (drawManager.determinesCitizenIsInRange(thisMouseHandler.x, thisMouseHandler.y)) {
-                drawManager.targetedCitizen.talk();
+               window.globalManager.textbox.setCitizen(drawManager.targetedCitizen);
+               drawManager.targetedCitizen.talk();
            }
            else {
                if (drawManager.targetedCitizen != null) {

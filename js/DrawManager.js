@@ -31,12 +31,14 @@ function DrawManager() {
         for (var i = 0; i < this.citizenArray.length; i++) {
             this.citizenArray[i].draw();
         }
+
         
         for (i = 0; i < this.citizenArray.length; i++) {
             if (this.citizenArray[i].isTalking) {
-                this.citizenArray[i].textbox.draw();
+                window.globalManager.textbox.draw();
             }
         }
+        
     }
 
     this.determinesCitizenIsInRange = determinesCitizenIsInRange;
