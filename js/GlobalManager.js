@@ -15,6 +15,8 @@ function GlobalManager() {
         this.mouseHandler.init();
 
         this.textbox = new Textbox();
+
+        this.randomizer = new Randomizer();
     }
 
 

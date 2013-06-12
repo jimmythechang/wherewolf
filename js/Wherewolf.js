@@ -1,15 +1,21 @@
-var requireArr = ["jquery", "GlobalManager", "MouseHandler", "DrawManager", "Citizen", "Textbox"];
+var requireArr = ["jquery", "GlobalManager", "Randomizer", "MouseHandler", "DrawManager", "Citizen", "Textbox", "Puzzles"];
 
 require(requireArr, function($) {
     $(document).ready( function() {
         var gm = new GlobalManager();
         gm.init();
 
-        var citizen = new Citizen(400, 80, '/wherewolf/img/chap.png', "I am no werewolf");
+        var puzzle = gm.randomizer.getPuzzle();
+        console.log(puzzle);
+
+        var citizen = new Citizen(400, 80, '/wherewolf/img/chap.png', puzzle[0].statement);
         gm.drawManager.registerCitizen(citizen);
 
-        var citizen2 = new Citizen(200, 100, '/wherewolf/img/chap2.png', "Trust not that man");
+        var citizen2 = new Citizen(200, 100, '/wherewolf/img/chap2.png', puzzle[1].statement);
         gm.drawManager.registerCitizen(citizen2);
+
+        var citizen3 = new Citizen(100, 100, '/wherewolf/img/lady.png', puzzle[2].statement);
+        gm.drawManager.registerCitizen(citizen3);
 
         window.setInterval(function() { gm.gameLoop(); }, 1000 / 30);
     });
