@@ -36,22 +36,9 @@ function MouseHandler() {
                    parlorScene.targetedCitizen.talk();
                }
                else if (parlorScene.targetedCitizen != null) {
-                    drawManager.targetedCitizen.shutUp();
-                   }
-           }
-           
-
-           /*
-           if (drawManager.determinesCitizenIsInRange(thisMouseHandler.x, thisMouseHandler.y)) {
-               window.globalManager.textbox.setCitizen(drawManager.targetedCitizen);
-               drawManager.targetedCitizen.talk();
-           }
-           else {
-               if (drawManager.targetedCitizen != null) {
-                   drawManager.targetedCitizen.shutUp();
+                    parlorScene.targetedCitizen.shutUp();
                }
            }
-            */
         });
     };
 
@@ -68,28 +55,15 @@ function MouseHandler() {
      */
 
     this._bindClick = function() {
-        var thisMouseHandler = this;
-
-        // TODO: check the scene, and handle things accordingly.
-
-        $('#canvas').click(function(e) {
+        $('#canvas').click(function() {
             var drawManager = window.globalManager.drawManager;
             drawManager.currentScene.click();
+        });
 
-            /*
-            if (drawManager.determinesCitizenIsInRange(thisMouseHandler.x, thisMouseHandler.y)) {
-                if (drawManager.targetedCitizen.isWherewolf) {
-                    $('#clickDebug').text('Wherewolf found!');
-                }
-                else {
-                    $('#clickDebug').text('You shot a citizen in the face');
-                }
-            }
-            else {
-                $('#clickDebug').text("Nothing but air!");
-            }
-            */
-        })
+        // Prevent highlighting from occurring when the canvas is clicked. 
+        $('#canvas')[0].onselectstart = function() {
+           return false;
+        };
     };
 
 }

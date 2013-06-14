@@ -24,6 +24,7 @@ function GlobalManager() {
         this.explanationScreen2 = new Scene(this.drawManager, "And the only way to cure it is BULLET");
 
         this.parlorScene = new ParlorScene(this.drawManager);
+        this.parlorScene.init();
 
         this.titleScreen.setNextScene(this.explanationScreen1);
         this.explanationScreen1.setNextScene(this.explanationScreen2);

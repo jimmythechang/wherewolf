@@ -1,6 +1,6 @@
 /**
  * Scene for when the player is actually solving a puzzle.
- * Parasitically inherits from the regular Scene class.
+ * Prototypically inherits from Scene.
  */
 
 function ParlorScene(drawManager) {
@@ -8,11 +8,24 @@ function ParlorScene(drawManager) {
     this.prototype = new Scene(drawManager, null);
     this.prototype.constructor = ParlorScene;
 
-    //var that = new Scene(drawManager, null);
-
     // Keeps track of the Citizens present.
     this.citizenArray = [];
+
+    // And the Citizen the player is hovering over.
     this.targetedCitizen = null;
+
+    this.init = function() {
+        var puzzle = window.globalManager.randomizer.getPuzzle();
+
+        var citizen = new Citizen(400, 80, '/wherewolf/img/chap.png', puzzle[0]);
+        this.registerCitizen(citizen);
+
+        var citizen2 = new Citizen(200, 100, '/wherewolf/img/chap2.png', puzzle[1]);
+        this.registerCitizen(citizen2);
+
+        var citizen3 = new Citizen(100, 100, '/wherewolf/img/lady.png', puzzle[2]);
+        this.registerCitizen(citizen3);
+    }
 
     // Add a new Citizen to the Citizen Array.
     this.registerCitizen = function(citizen) {
@@ -25,11 +38,16 @@ function ParlorScene(drawManager) {
 
     // Draw all the registered Citizens.
     this.drawCitizens = function() {
+        var someoneIsTalking = false;
         for (var i = 0; i < this.citizenArray.length; i++) {
             this.citizenArray[i].draw();
             if (this.citizenArray[i].isTalking) {
-                window.globalManager.textbox.draw();
+                someoneIsTalking = true;
             }
+        }
+
+        if (someoneIsTalking) {
+            window.globalManager.textbox.draw();
         }
     }
 
