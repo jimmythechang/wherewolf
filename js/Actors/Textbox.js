@@ -19,11 +19,11 @@ function Textbox() {
         ctx.font = '24pt Arial';
         ctx.fillStyle = "#000000";
         ctx.fillText(this.text, this.x + 10, this.y + 40);
-    }
+    };
 
     this.setCitizen = function(citizen) {
         this.text = citizen.statement;
-    }
+    };
 }
 
 

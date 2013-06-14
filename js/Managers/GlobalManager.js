@@ -16,10 +16,22 @@ function GlobalManager() {
         this.textbox = new Textbox();
 
         this.randomizer = new Randomizer();
-    }
+    };
+
+    this.setUpScenes = function() {
+        this.titleScreen = new Scene(this.drawManager, "WHEREWOLF - Click to Continue");
+        this.explanationScreen1 = new Scene(this.drawManager, "There is an EPIDEMIC");
+        this.explanationScreen2 = new Scene(this.drawManager, "And the only way to cure it is BULLET");
+
+        this.parlorScene = new ParlorScene(this.drawManager);
+
+        this.titleScreen.setNextScene(this.explanationScreen1);
+        this.explanationScreen1.setNextScene(this.explanationScreen2);
+        this.explanationScreen2.setNextScene(this.parlorScene);
+    };
 
 
     this.gameLoop = function() {
         this.drawManager.draw();
-    }
+    };
 }

@@ -1,57 +1,39 @@
 /**
- * Responsible for managing the location of various items in the canvas, and drawing
- * them when appropriate. The MouseHandler talks to the DrawManager when it needs
- * to figure out if it's clicked a Citizen.
+ * Scene for when the player is actually solving a puzzle.
+ * Parasitically inherits from the regular Scene class.
  */
 
-function DrawManager() {
+function ParlorScene(drawManager) {
 
-    // TODO: these properties should be bundled away into the
-    // ParlorScene.
-    //this.citizenArray = [];
-    //this.targetedCitizen = null;
+    this.prototype = new Scene(drawManager, null);
+    this.prototype.constructor = ParlorScene;
 
-    this.currentScene = null;
+    //var that = new Scene(drawManager, null);
 
-    this.draw = function() {
-        this.clearScreen();
-        this.currentScene.show();
+    // Keeps track of the Citizens present.
+    this.citizenArray = [];
+    this.targetedCitizen = null;
 
-        //this.drawCitizens();
-    };
-
-    this.clearScreen = function() {
-        var ctx = window.globalManager.ctx;
-        ctx.clearRect(0, 0, 800, 600);
-    };
-
-
-    this.loadScene = function(scene) {
-        this.currentScene = scene;
-    };
-
-    // These should be bundled up into the ParlorScene, I believe.
-
-    /*
-
+    // Add a new Citizen to the Citizen Array.
     this.registerCitizen = function(citizen) {
         this.citizenArray.push(citizen);
     };
 
+    this.show = function() {
+        this.drawCitizens();
+    }
+
+    // Draw all the registered Citizens.
     this.drawCitizens = function() {
         for (var i = 0; i < this.citizenArray.length; i++) {
             this.citizenArray[i].draw();
-        }
-
-        
-        for (i = 0; i < this.citizenArray.length; i++) {
             if (this.citizenArray[i].isTalking) {
                 window.globalManager.textbox.draw();
             }
         }
-    };
+    }
 
-    this.determinesCitizenIsInRange = function(mouseX, mouseY) {
+   this.determinesCitizenIsInRange = function(mouseX, mouseY) {
         // Iterate through the citizen array, and determine if the
         // mouse has clicked within the boundaries of a citizen.
 
@@ -75,19 +57,18 @@ function DrawManager() {
 
         return false;
     };
-    */
 
     /**
      * Determine if the player is hovering over/clicking a solid pixel.
      */
 
-    /*
+
     this.solidPixelTargeted = function(mouseX, mouseY, citizen) {
         var imageWidth = citizen.image.width;
         var imageData = citizen.imageData;
 
         // Subtract the offset of where the Citizen's been placed
-        // on the canvas. 
+        // on the canvas.
         mouseX -= citizen.x;
         mouseY -= citizen.y;
 
@@ -102,8 +83,20 @@ function DrawManager() {
         return false;
     };
 
-    */
-
+    this.click = function() {
+        if (this.determinesCitizenIsInRange(window.globalManager.mouseHandler.x, window.globalManager.mouseHandler.y)) {
+            if (this.targetedCitizen.isWherewolf) {
+                $('#clickDebug').text('Wherewolf found!');
+            }
+            else {
+                $('#clickDebug').text('You shot a citizen in the face');
+            }
+        }
+        else {
+            $('#clickDebug').text("Nothing but air!");
+        }
+    }
+    
 }
 
 
