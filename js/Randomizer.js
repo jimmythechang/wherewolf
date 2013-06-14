@@ -7,14 +7,12 @@ function Randomizer() {
     this.solvedPuzzles = [];
     this.puzzleCount = puzzleArray.length;
 
-    this.getPuzzle = getPuzzle;
-    function getPuzzle() {
-        var puzzleNumber = Math.round(Math.random() * this.puzzleCount) - 1;
+    this.getPuzzle = function() {
+        var puzzleNumber = Math.round(Math.random() * this.puzzleCount - 1);
         return this.shuffleStatements(puzzleArray[puzzleNumber]);
-    }
+    };
 
-    this.shuffleStatements = shuffleStatements;
-    function shuffleStatements(puzzle) {
+    this.shuffleStatements = function(puzzle) {
       var i = puzzle.length;
       if ( i == 0 ) return false;
       while ( --i ) {
@@ -26,7 +24,7 @@ function Randomizer() {
       }
 
       return puzzle;
-    }
+    };
     
 }
 

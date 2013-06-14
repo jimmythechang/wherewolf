@@ -9,14 +9,12 @@ function MouseHandler() {
     this.canvasXOffset = 8;
     this.canvasYOffset = 8;
 
-    this.init = init;
-    function init() {
+    this.init = function() {
         this._trackMousePosition();
         this._bindClick();
     }
 
-    this._trackMousePosition = _trackMousePosition;
-    function _trackMousePosition() {
+    this._trackMousePosition = function() {
         var thisMouseHandler = this;
 
         var drawManager = window.globalManager.drawManager;
@@ -39,8 +37,7 @@ function MouseHandler() {
         });
     }
 
-    this._displayMousePosition = _displayMousePosition;
-    function _displayMousePosition() {
+    this._displayMousePosition = function() {
         var xPos = "x: " + this.x;
         var yPos = "y: " + this.y;
 
@@ -52,14 +49,18 @@ function MouseHandler() {
      * to the DrawManager for that information.
      */
 
-    this._bindClick = _bindClick;
-    function _bindClick() {
+    this._bindClick = function() {
         var thisMouseHandler = this;
 
         $('#canvas').click(function(e) {
             var drawManager = window.globalManager.drawManager;
             if (drawManager.determinesCitizenIsInRange(thisMouseHandler.x, thisMouseHandler.y)) {
-                $('#clickDebug').text("Citizen clicked!");
+                if (drawManager.targetedCitizen.isWherewolf) {
+                    $('#clickDebug').text('Wherewolf found!');
+                }
+                else {
+                    $('#clickDebug').text('You shot a citizen in the face');
+                }
             }
             else {
                 $('#clickDebug').text("Nothing but air!");

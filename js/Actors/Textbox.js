@@ -9,8 +9,7 @@ function Textbox() {
     this.text = null;
     this.portrait = null;
 
-    this.draw = draw;
-    function draw() {
+    this.draw = function() {
         var ctx = window.globalManager.ctx;
         ctx.fillStyle = "#FFFFFF";
         ctx.fillRect(this.x, this.y, 800, 100);
@@ -22,8 +21,7 @@ function Textbox() {
         ctx.fillText(this.text, this.x + 10, this.y + 40);
     }
 
-    this.setCitizen = setCitizen;
-    function setCitizen(citizen) {
+    this.setCitizen = function(citizen) {
         this.text = citizen.statement;
     }
 }

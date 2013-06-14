@@ -8,26 +8,22 @@ function DrawManager() {
     this.citizenArray = [];
     this.targetedCitizen = null;
 
-    this.draw = draw;
-    function draw() {
+    this.draw = function() {
         this.clearScreen();
         this.drawCitizens();
     }
 
-    this.clearScreen = clearScreen;
-    function clearScreen() {
+    this.clearScreen = function() {
         var ctx = window.globalManager.ctx;
         ctx.clearRect(0, 0, 800, 600);
     }
 
 
-    this.registerCitizen = registerCitizen;
-    function registerCitizen(citizen) {
+    this.registerCitizen = function(citizen) {
         this.citizenArray.push(citizen);
     }
 
-    this.drawCitizens = drawCitizens;
-    function drawCitizens() {
+    this.drawCitizens = function() {
         for (var i = 0; i < this.citizenArray.length; i++) {
             this.citizenArray[i].draw();
         }
@@ -41,8 +37,7 @@ function DrawManager() {
         
     }
 
-    this.determinesCitizenIsInRange = determinesCitizenIsInRange;
-    function determinesCitizenIsInRange(mouseX, mouseY) {
+    this.determinesCitizenIsInRange = function(mouseX, mouseY) {
         // Iterate through the citizen array, and determine if the
         // mouse has clicked within the boundaries of a citizen.
 
@@ -70,8 +65,7 @@ function DrawManager() {
     /**
      * Determine if the player is hovering over/clicking a solid pixel.
      */
-    this.solidPixelTargeted = solidPixelTargeted;
-    function solidPixelTargeted(mouseX, mouseY, citizen) {
+    this.solidPixelTargeted = function(mouseX, mouseY, citizen) {
         var imageWidth = citizen.image.width;
         var imageData = citizen.imageData;
 
@@ -91,8 +85,7 @@ function DrawManager() {
         return false;
     }
 
-    this.shootCitizen = shootCitizen;
-    function shootCitizen() {
+    this.shootCitizen = function() {
         
     }
 }

@@ -3,7 +3,7 @@
  */
 
 
-function Citizen(x, y, imageSrc, statement) {
+function Citizen(x, y, imageSrc, puzzleStatement) {
 
     this.x = x;
     this.y = y;
@@ -21,14 +21,14 @@ function Citizen(x, y, imageSrc, statement) {
     }
     this.image.src = imageSrc;
 
-    this.statement = statement;
+    this.statement = puzzleStatement.statement;
+    this.isWherewolf = puzzleStatement.isWherewolf;
 
     // Indicates if the Citizen has a Textbox open.
     this.isTalking = false;
 
 
-    this.draw = draw;
-    function draw() {
+    this.draw = function() {
         if (this.imageLoaded) {
             window.globalManager.ctx.drawImage(this.image, this.x, this.y);
         }
@@ -41,19 +41,17 @@ function Citizen(x, y, imageSrc, statement) {
             window.globalManager.textbox.draw();
         }
         
-    }
+    };
 
-    this.talk = talk;
-    function talk() {
+    this.talk = function() {
         if (!this.isTalking) {
             this.isTalking = true;
         }
-    }
+    };
 
-    this.shutUp = shutUp;
-    function shutUp() {
+    this.shutUp = function() {
         this.isTalking = false;
-    }
+    };
 
 }
 

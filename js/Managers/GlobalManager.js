@@ -4,8 +4,7 @@
  */
 
 function GlobalManager() {
-    this.init = init;
-    function init() {
+    this.init = function() {
         window.globalManager = this;
 
         this.ctx = $('#canvas')[0].getContext('2d');
@@ -20,8 +19,7 @@ function GlobalManager() {
     }
 
 
-    this.gameLoop = gameLoop;
-    function gameLoop() {
+    this.gameLoop = function() {
         this.drawManager.draw();
     }
 }
