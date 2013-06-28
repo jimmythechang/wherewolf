@@ -7,9 +7,19 @@ function Randomizer() {
     this.solvedPuzzles = [];
     this.puzzleCount = puzzleArray.length;
 
+    /**
+     * Gets a random puzzle.
+     * TODO: since there's a map screen, we won't need to
+     * retrieve a random puzzle any longer. But we'll still need shuffleStatements().
+     */
     this.getPuzzle = function() {
         var puzzleNumber = Math.round(Math.random() * this.puzzleCount - 1);
-        return this.shuffleStatements(puzzleArray[puzzleNumber]);
+        if (puzzleNumber < 0) {
+            puzzleNumber = 0;
+        }
+
+        var puzzle = puzzleArray[puzzleNumber];
+        return this.shuffleStatements(puzzle.statements);
     };
 
     this.shuffleStatements = function(puzzle) {
