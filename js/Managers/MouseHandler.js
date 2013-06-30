@@ -28,7 +28,7 @@ function MouseHandler() {
            thisMouseHandler._displayMousePosition();
 
            var scene = drawManager.currentScene;
-           if (scene instanceof ParlorScene) {
+           if (typeof scene.determinesCitizenIsInRange === 'function') {
                var parlorScene = scene;
 
                if (parlorScene.determinesCitizenIsInRange(thisMouseHandler.x, thisMouseHandler.y)) {

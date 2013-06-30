@@ -23,6 +23,8 @@ function GlobalManager() {
         this.explanationScreen1 = new Scene(this.drawManager, "There is an EPIDEMIC");
         this.explanationScreen2 = new Scene(this.drawManager, "And the only way to cure it is BULLET");
 
+        this.mapScene = new MapScene(this.drawManager);
+
         this.parlorScene = new ParlorScene(this.drawManager);
         this.parlorScene.init();
 
