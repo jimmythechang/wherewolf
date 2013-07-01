@@ -57,7 +57,7 @@ function ParlorScene(drawManager) {
         }
     };
 
-   parlorScene.determinesCitizenIsInRange = function(mouseX, mouseY) {
+   parlorScene.determineCitizenIsInRange = function(mouseX, mouseY) {
        
         // Iterate through the citizen array, and determine if the
         // mouse has clicked within the boundaries of a citizen.
@@ -67,7 +67,13 @@ function ParlorScene(drawManager) {
 
            if (citizen.isWithinRange(mouseX, mouseY) && citizen.solidPixelTargeted(mouseX, mouseY, parlorScene)) {
                 parlorScene.targetedCitizen = citizen;
+                window.globalManager.textbox.setCitizen(parlorScene.targetedCitizen);
+                parlorScene.targetedCitizen.talk();
                 return true;
+           }
+           else if (parlorScene.targetedCitizen != null) {
+               parlorScene.targetedCitizen.shutUp();
+               parlorScene.targetedCitizen = null;
            }
         }
 
@@ -75,7 +81,7 @@ function ParlorScene(drawManager) {
     };
 
     parlorScene.click = function() {
-        if (parlorScene.determinesCitizenIsInRange(window.globalManager.mouseHandler.x, window.globalManager.mouseHandler.y)) {
+        if (parlorScene.targetedCitizen != null) {
             if (parlorScene.targetedCitizen.isWherewolf) {
                 $('#clickDebug').text('Wherewolf found!');
             }

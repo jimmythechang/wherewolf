@@ -1,5 +1,6 @@
 /* 
  * The map for choosing a puzzle. Keeps track of which puzzles have been solved.
+ * Parasitically inherits from Scene.
  */
 
 function MapScene(drawManager) {
@@ -12,6 +13,10 @@ function MapScene(drawManager) {
             puzzleArray[i].draw();
         }
     };
+
+    mapScene.click = function() {
+        return false;
+    }
 
     mapScene.determineCityInRange = function() {
         

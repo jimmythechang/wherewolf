@@ -16,14 +16,10 @@ function Clickable(x, y) {
         var upperBound = this.y;
         var lowerBound = this.y + this.boundingHeight;
 
-        if (mouseX > leftBound &&
-            mouseX <= rightBound &&
-            mouseY > upperBound &&
-            mouseY <= lowerBound) {
-                return true
-        }
-
-        return false;
+        return (mouseX > leftBound &&
+                mouseX <= rightBound &&
+                mouseY > upperBound &&
+                mouseY <= lowerBound);
     }
 }
 

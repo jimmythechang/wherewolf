@@ -22,22 +22,16 @@ function MouseHandler() {
         $('#canvas').mousemove(function (e) {
            // For debugging.
 
-           
            thisMouseHandler.x = e.pageX - thisMouseHandler.canvasXOffset;
            thisMouseHandler.y = e.pageY - thisMouseHandler.canvasYOffset;
            thisMouseHandler._displayMousePosition();
 
            var scene = drawManager.currentScene;
-           if (typeof scene.determinesCitizenIsInRange === 'function') {
+           if (typeof scene.determineCitizenIsInRange === 'function') {
                var parlorScene = scene;
 
-               if (parlorScene.determinesCitizenIsInRange(thisMouseHandler.x, thisMouseHandler.y)) {
-                   window.globalManager.textbox.setCitizen(parlorScene.targetedCitizen);
-                   parlorScene.targetedCitizen.talk();
-               }
-               else if (parlorScene.targetedCitizen != null) {
-                    parlorScene.targetedCitizen.shutUp();
-               }
+               parlorScene.determineCitizenIsInRange(thisMouseHandler.x, thisMouseHandler.y);
+               
            }
         });
     };
