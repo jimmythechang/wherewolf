@@ -14,11 +14,15 @@ function MapScene(drawManager) {
         }
     };
 
+    mapScene.mouseMove = function(mouseX, mouseY) {
+        mapScene.determineCityIsInRange(mouseX, mouseY);
+    }
+
     mapScene.click = function() {
         return false;
     }
 
-    mapScene.determineCityInRange = function() {
+    mapScene.determineCityIsInRange = function() {
         
     }
 

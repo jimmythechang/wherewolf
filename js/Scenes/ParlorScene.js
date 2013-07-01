@@ -69,16 +69,18 @@ function ParlorScene(drawManager) {
                 parlorScene.targetedCitizen = citizen;
                 window.globalManager.textbox.setCitizen(parlorScene.targetedCitizen);
                 parlorScene.targetedCitizen.talk();
-                return true;
+                break;
            }
            else if (parlorScene.targetedCitizen != null) {
                parlorScene.targetedCitizen.shutUp();
                parlorScene.targetedCitizen = null;
            }
         }
-
-        return false;
     };
+
+    parlorScene.mouseMove = function(mouseX, mouseY) {
+        parlorScene.determineCitizenIsInRange(mouseX, mouseY);
+    }
 
     parlorScene.click = function() {
         if (parlorScene.targetedCitizen != null) {

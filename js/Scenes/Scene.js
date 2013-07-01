@@ -19,6 +19,10 @@ function Scene(drawManager, text) {
         this.nextScene = scene;
     };
 
+    this.mouseMove = function() {
+        
+    }
+
     this.click = function() {
         this.drawManager.loadScene(this.nextScene);
     };

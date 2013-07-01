@@ -30,6 +30,7 @@ function GlobalManager() {
 
         this.titleScreen.setNextScene(this.explanationScreen1);
         this.explanationScreen1.setNextScene(this.explanationScreen2);
+        //this.explanationScreen2.setNextScene(this.mapScene);
         this.explanationScreen2.setNextScene(this.parlorScene);
     };
 

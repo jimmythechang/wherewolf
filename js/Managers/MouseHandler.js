@@ -14,6 +14,9 @@ function MouseHandler() {
         this._bindClick();
     };
 
+    // Defers mouse move events to the particular scene in which
+    // they take place.
+
     this._trackMousePosition = function() {
         var thisMouseHandler = this;
 
@@ -27,12 +30,8 @@ function MouseHandler() {
            thisMouseHandler._displayMousePosition();
 
            var scene = drawManager.currentScene;
-           if (typeof scene.determineCitizenIsInRange === 'function') {
-               var parlorScene = scene;
 
-               parlorScene.determineCitizenIsInRange(thisMouseHandler.x, thisMouseHandler.y);
-               
-           }
+           drawManager.currentScene.mouseMove(thisMouseHandler.x, thisMouseHandler.y);
         });
     };
 
@@ -44,8 +43,8 @@ function MouseHandler() {
     };
 
     /**
-     * Determine if the player has clicked on a Citizen. Makes a call
-     * to the DrawManager for that information.
+     * Defers click events to the particular scene in which
+     * they take place.
      */
 
     this._bindClick = function() {
