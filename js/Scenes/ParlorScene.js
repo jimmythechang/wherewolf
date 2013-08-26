@@ -3,10 +3,12 @@
  * Parasitically inherits from Scene.
  */
 
-function ParlorScene(drawManager) {
+function ParlorScene(drawManager, puzzle) {
 
     var scene = new Scene(drawManager);
     var parlorScene = this.extend(scene);
+
+    parlorScene.puzzle = puzzle;
 
     // Keeps track of the Citizens present.
 
@@ -19,13 +21,13 @@ function ParlorScene(drawManager) {
     parlorScene.init = function() {
         var puzzle = window.globalManager.randomizer.getPuzzle();
 
-        var citizen = new Citizen(400, 80, '/wherewolf/img/chap.png', puzzle[0]);
+        var citizen = new Citizen(400, 80, '/wherewolf/img/chap.png', parlorScene.puzzle.statements[0]);
         parlorScene.registerCitizen(citizen);
 
-        var citizen2 = new Citizen(200, 100, '/wherewolf/img/chap2.png', puzzle[1]);
+        var citizen2 = new Citizen(200, 100, '/wherewolf/img/chap2.png', parlorScene.puzzle.statements[1]);
         parlorScene.registerCitizen(citizen2);
 
-        var citizen3 = new Citizen(100, 100, '/wherewolf/img/lady.png', puzzle[2]);
+        var citizen3 = new Citizen(100, 100, '/wherewolf/img/lady.png', parlorScene.puzzle.statements[2]);
         parlorScene.registerCitizen(citizen3);
 
         
@@ -60,7 +62,7 @@ function ParlorScene(drawManager) {
    parlorScene.determineCitizenIsInRange = function(mouseX, mouseY) {
        
         // Iterate through the citizen array, and determine if the
-        // mouse has clicked within the boundaries of a citizen.
+        // mouse is hovering within the boundaries of a citizen.
 
         for (var i = 0; i < parlorScene.citizenArray.length; i++) {
            var citizen = parlorScene.citizenArray[i];

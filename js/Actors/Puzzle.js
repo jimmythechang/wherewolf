@@ -1,24 +1,26 @@
 // The data for a Puzzle; is represented by a city on the Map.
 
 function Puzzle(town, x, y, statementArr) {
-    this.town = town;
-    this.x = x;
-    this.y = y;
 
-    this.width = 20;
+    var clickable = new Clickable(x, y);
+    var puzzle = this.extend(clickable);
 
-    this.statements = statementArr;
-    this.completed = false;
+    puzzle.town = town;
+    puzzle.radius = 20;
 
-    this.draw = function() {
+    puzzle.boundingWidth = puzzle.radius * 2;
+    puzzle.boundingHeight = puzzle.radius * 2;
+
+    puzzle.statements = statementArr;
+    puzzle.completed = false;
+
+    puzzle.draw = function() {
         var ctx = window.globalManager.ctx;
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.width, 0, 2 * Math.PI, false);
+        ctx.arc(puzzle.x + puzzle.radius, puzzle.y + puzzle.radius, puzzle.radius, 0, 2 * Math.PI, false);
         ctx.fillStyle = 'blue';
         ctx.fill();
     }
 
-    this.boundingWidth = 20;
-    this.boundingHeight = 20;
-
+    return puzzle;
 }

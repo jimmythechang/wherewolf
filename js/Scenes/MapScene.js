@@ -19,11 +19,33 @@ function MapScene(drawManager) {
     }
 
     mapScene.click = function() {
-        return false;
+        if (mapScene.targetedPuzzle != null) {
+           $('#clickDebug').text(mapScene.targetedPuzzle.town + " clicked!");
+
+           var parlorScene = new ParlorScene(this.drawManager, mapScene.targetedPuzzle);
+           parlorScene.init();
+           this.drawManager.loadScene(parlorScene);
+        }
+        else {
+            $('#clickDebug').text("Nothing but air!");
+        }
     }
 
-    mapScene.determineCityIsInRange = function() {
-        
+    mapScene.determineCityIsInRange = function(mouseX, mouseY) {
+        // Iterate through the puzzle array, and determine if the
+        // mouse is hovering within the boundaries of a city.
+
+        for (var i = 0; i < puzzleArray.length; i++) {
+           var puzzle = puzzleArray[i];
+
+           if (puzzle.isWithinRange(mouseX, mouseY)) {
+                mapScene.targetedPuzzle = puzzle;
+                break;
+           }
+           else if (mapScene.targetedPuzzle != null) {
+               mapScene.targetedPuzzle = null;
+           }
+        }
     }
 
     return mapScene;

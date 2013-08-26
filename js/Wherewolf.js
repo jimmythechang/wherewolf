@@ -1,18 +1,19 @@
+// A helper function for prototypically
+// extending from other objects.
+
+Object.prototype.extend = function(o) {
+    function F() {}
+    F.prototype = o;
+    return new F();
+}
+
+
 var requireArr = ["jquery", "Managers/GlobalManager", "Randomizer", "Managers/MouseHandler", 
-                  "Managers/DrawManager", "Actors/Clickable", "Actors/Citizen", "Actors/Textbox", "Actors/Puzzle", "Scenes/Scene",
+                  "Managers/DrawManager", "Actors/Clickable", "Actors/Puzzle", "Actors/Citizen", "Actors/Textbox", "Scenes/Scene",
                   "Scenes/ParlorScene", "Scenes/MapScene", "Puzzles"];
 
 require(requireArr, function($) {
     $(document).ready( function() {
-
-        // A helper function to prototypically
-        // extend from other objects.
-        
-        Object.prototype.extend = function(o) {
-            function F() {}
-            F.prototype = o;
-            return new F();
-        }
 
         var gm = new GlobalManager();
         gm.init();
