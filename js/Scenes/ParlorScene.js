@@ -8,6 +8,7 @@ function ParlorScene(drawManager, puzzle) {
     var scene = new Scene(drawManager);
     var parlorScene = this.extend(scene);
 
+    parlorScene.textbox = new Textbox();
     parlorScene.puzzle = puzzle;
 
     // Keeps track of the Citizens present.
@@ -19,18 +20,14 @@ function ParlorScene(drawManager, puzzle) {
     parlorScene.targetedCitizen = null;
 
     parlorScene.init = function() {
-        var puzzle = window.globalManager.randomizer.getPuzzle();
-
-        var citizen = new Citizen(400, 80, '/wherewolf/img/chap.png', parlorScene.puzzle.statements[0]);
+        var citizen = new Citizen(400, 80, '/wherewolf/img/chap.png', parlorScene.puzzle.statements[0], parlorScene.textbox);
         parlorScene.registerCitizen(citizen);
 
-        var citizen2 = new Citizen(200, 100, '/wherewolf/img/chap2.png', parlorScene.puzzle.statements[1]);
+        var citizen2 = new Citizen(200, 100, '/wherewolf/img/chap2.png', parlorScene.puzzle.statements[1], parlorScene.textbox);
         parlorScene.registerCitizen(citizen2);
 
-        var citizen3 = new Citizen(100, 100, '/wherewolf/img/lady.png', parlorScene.puzzle.statements[2]);
+        var citizen3 = new Citizen(100, 100, '/wherewolf/img/lady.png', parlorScene.puzzle.statements[2], parlorScene.textbox);
         parlorScene.registerCitizen(citizen3);
-
-        
     };
 
     // Add a new Citizen to the Citizen Array.
@@ -55,7 +52,7 @@ function ParlorScene(drawManager, puzzle) {
         }
 
         if (someoneIsTalking) {
-            window.globalManager.textbox.draw();
+            parlorScene.textbox.draw();
         }
     };
 
@@ -69,7 +66,7 @@ function ParlorScene(drawManager, puzzle) {
 
            if (citizen.isWithinRange(mouseX, mouseY) && citizen.solidPixelTargeted(mouseX, mouseY, parlorScene)) {
                 parlorScene.targetedCitizen = citizen;
-                window.globalManager.textbox.setCitizen(parlorScene.targetedCitizen);
+                parlorScene.textbox.setCitizen(parlorScene.targetedCitizen);
                 parlorScene.targetedCitizen.talk();
                 break;
            }

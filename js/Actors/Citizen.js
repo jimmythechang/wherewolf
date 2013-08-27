@@ -3,10 +3,12 @@
  */
 
 
-function Citizen(x, y, imageSrc, puzzleStatement) {
+function Citizen(x, y, imageSrc, puzzleStatement, textbox) {
 
     var clickable = new Clickable(x, y);
     var citizen = this.extend(clickable);
+
+    citizen.textbox = textbox;
 
     // Contains the pixel data in the image used
     // for the citizen.
@@ -29,7 +31,6 @@ function Citizen(x, y, imageSrc, puzzleStatement) {
     // Indicates if the Citizen has a Textbox open.
     citizen.isTalking = false;
 
-
     citizen.draw = function() {
         if (citizen.imageLoaded) {
             window.globalManager.ctx.drawImage(citizen.image, citizen.x, citizen.y);
@@ -40,7 +41,7 @@ function Citizen(x, y, imageSrc, puzzleStatement) {
 
         
         if (citizen.isTalking) {
-            window.globalManager.textbox.draw();
+            citizen.textbox.draw();
         }
         
     };
@@ -55,7 +56,7 @@ function Citizen(x, y, imageSrc, puzzleStatement) {
         citizen.isTalking = false;
     };
 
-  /**
+    /**
      * Determine if the player is hovering over/clicking a solid pixel.
      */
 

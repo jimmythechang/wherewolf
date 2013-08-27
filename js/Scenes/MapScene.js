@@ -7,10 +7,18 @@ function MapScene(drawManager) {
     var scene = new Scene(drawManager, null);
     var mapScene = this.extend(scene);
 
+    mapScene.textbox = new Textbox();
+    mapScene.showTextbox = false;
+    
     mapScene.solvedPuzzles = new Array();
+
     mapScene.show = function() {
         for (var i = 0; i < puzzleArray.length; i++) {
             puzzleArray[i].draw();
+        }
+
+        if (mapScene.showTextbox) {
+            mapScene.textbox.draw();
         }
     };
 
@@ -40,10 +48,13 @@ function MapScene(drawManager) {
 
            if (puzzle.isWithinRange(mouseX, mouseY)) {
                 mapScene.targetedPuzzle = puzzle;
+                mapScene.textbox.text = puzzle.town;
+                mapScene.showTextbox = true;
                 break;
            }
            else if (mapScene.targetedPuzzle != null) {
                mapScene.targetedPuzzle = null;
+               mapScene.showTextbox = false;
            }
         }
     }
