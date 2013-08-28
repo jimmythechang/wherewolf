@@ -59,6 +59,16 @@ function MapScene(drawManager) {
         }
     }
 
+    mapScene.removePuzzle = function(puzzleTown) {
+        for (var i = 0; i < puzzleArray.length; i++) {
+            if (puzzleArray[i].town == puzzleTown) {
+                puzzleArray.splice(i, 1);
+            }
+        }
+
+        return puzzleArray.length;
+    }
+
     return mapScene;
 }
 

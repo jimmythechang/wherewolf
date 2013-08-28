@@ -24,6 +24,10 @@ function Scene(drawManager, text) {
     }
 
     this.click = function() {
-        this.drawManager.loadScene(this.nextScene);
+        this.showNextScene();
     };
+
+    this.showNextScene = function() {
+        this.drawManager.loadScene(this.nextScene);
+    }
 }

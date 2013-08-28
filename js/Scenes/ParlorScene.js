@@ -83,12 +83,33 @@ function ParlorScene(drawManager, puzzle) {
 
     parlorScene.click = function() {
         if (parlorScene.targetedCitizen != null) {
+            var mapScene = window.globalManager.mapScene;
+
             if (parlorScene.targetedCitizen.isWherewolf) {
                 $('#clickDebug').text('Wherewolf found!');
+
+                // TODO: Animate the death of the Wherewolf...
+
+
+                // ...and transition back to the MapScene.
+
+                var remainingPuzzles = mapScene.removePuzzle(parlorScene.puzzle.town);
+
+                if (remainingPuzzles > 0) {
+                    parlorScene.setNextScene(mapScene);
+                }
+                
             }
             else {
                 $('#clickDebug').text('You shot a citizen in the face');
+
+                var text = "You shot a citizen in the face.";
+                var scene = new Scene(window.globalManager.drawManager, text);
+                scene.setNextScene(mapScene);
+                parlorScene.setNextScene(scene);
             }
+
+            parlorScene.showNextScene();
         }
         else {
             $('#clickDebug').text("Nothing but air!");
