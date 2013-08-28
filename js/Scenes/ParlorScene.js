@@ -3,9 +3,9 @@
  * Parasitically inherits from Scene.
  */
 
-function ParlorScene(drawManager, puzzle) {
+function ParlorScene(puzzle) {
 
-    var scene = new Scene(drawManager);
+    var scene = new Scene(null);
     var parlorScene = this.extend(scene);
 
     parlorScene.textbox = new Textbox();
@@ -104,7 +104,7 @@ function ParlorScene(drawManager, puzzle) {
                 $('#clickDebug').text('You shot a citizen in the face');
 
                 var text = "You shot a citizen in the face.";
-                var scene = new Scene(window.globalManager.drawManager, text);
+                var scene = new Scene(text);
                 scene.setNextScene(mapScene);
                 parlorScene.setNextScene(scene);
             }

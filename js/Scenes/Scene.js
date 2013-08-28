@@ -3,10 +3,10 @@
  * Only transitions to one other scene. 
  */
 
-function Scene(drawManager, text) {
+function Scene(text) {
     // The scene to show after this one.
     this.nextScene = null;
-    this.drawManager = drawManager;
+    this.drawManager = window.globalManager.drawManager;
 
     this.show = function() {
         var ctx = window.globalManager.ctx;

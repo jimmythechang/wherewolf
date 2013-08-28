@@ -3,8 +3,8 @@
  * Parasitically inherits from Scene.
  */
 
-function MapScene(drawManager) {
-    var scene = new Scene(drawManager, null);
+function MapScene() {
+    var scene = new Scene(null);
     var mapScene = this.extend(scene);
 
     mapScene.textbox = new Textbox();
@@ -30,9 +30,9 @@ function MapScene(drawManager) {
         if (mapScene.targetedPuzzle != null) {
            $('#clickDebug').text(mapScene.targetedPuzzle.town + " clicked!");
 
-           var parlorScene = new ParlorScene(this.drawManager, mapScene.targetedPuzzle);
+           var parlorScene = new ParlorScene(mapScene.targetedPuzzle);
            parlorScene.init();
-           this.drawManager.loadScene(parlorScene);
+           mapScene.drawManager.loadScene(parlorScene);
         }
         else {
             $('#clickDebug').text("Nothing but air!");

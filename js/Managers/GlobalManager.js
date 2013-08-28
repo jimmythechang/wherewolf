@@ -17,11 +17,11 @@ function GlobalManager() {
     };
 
     this.setUpScenes = function() {
-        this.titleScreen = new Scene(this.drawManager, "WHEREWOLF - Click to Continue");
-        this.explanationScreen1 = new Scene(this.drawManager, "There is an EPIDEMIC");
-        this.explanationScreen2 = new Scene(this.drawManager, "And the only way to cure it is BULLET");
+        this.titleScreen = new Scene("WHEREWOLF - Click to Continue");
+        this.explanationScreen1 = new Scene("There is an EPIDEMIC");
+        this.explanationScreen2 = new Scene("And the only way to cure it is BULLET");
 
-        this.mapScene = new MapScene(this.drawManager);
+        this.mapScene = new MapScene();
 
         this.titleScreen.setNextScene(this.explanationScreen1);
         this.explanationScreen1.setNextScene(this.explanationScreen2);
