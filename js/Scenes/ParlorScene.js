@@ -10,6 +10,11 @@ function ParlorScene(puzzle) {
 
     parlorScene.textbox = new Textbox();
     parlorScene.puzzle = puzzle;
+    
+    // Background.
+    
+    parlorScene.background = new Image();
+    parlorScene.background.src = '/wherewolf/img/background.png';
 
     // Keeps track of the Citizens present.
 
@@ -20,14 +25,18 @@ function ParlorScene(puzzle) {
     parlorScene.targetedCitizen = null;
 
     parlorScene.init = function() {
-        var citizen = new Citizen(400, 80, '/wherewolf/img/chap.png', parlorScene.puzzle.statements[0], parlorScene.textbox);
+        var citizen = new Citizen(50, 178, '/wherewolf/img/guest_a_idle.png', parlorScene.puzzle.statements[0], parlorScene.textbox);
         parlorScene.registerCitizen(citizen);
 
-        var citizen2 = new Citizen(200, 100, '/wherewolf/img/chap2.png', parlorScene.puzzle.statements[1], parlorScene.textbox);
+        var citizen2 = new Citizen(260, 145, '/wherewolf/img/guest_b_idle.png', parlorScene.puzzle.statements[1], parlorScene.textbox);
         parlorScene.registerCitizen(citizen2);
-
-        var citizen3 = new Citizen(100, 100, '/wherewolf/img/lady.png', parlorScene.puzzle.statements[2], parlorScene.textbox);
+        
+        var citizen3 = new Citizen(480, 133, '/wherewolf/img/guest_c_idle.png', parlorScene.puzzle.statements[2], parlorScene.textbox);
         parlorScene.registerCitizen(citizen3);
+        
+        var citizen4 = new Citizen(650, 105, '/wherewolf/img/guest_d_idle.png', parlorScene.puzzle.statements[3], parlorScene.textbox);
+        parlorScene.registerCitizen(citizen4);
+
     };
 
     // Add a new Citizen to the Citizen Array.
@@ -37,6 +46,10 @@ function ParlorScene(puzzle) {
     };
 
     parlorScene.show = function() {
+        // Draw the background.
+        
+        window.globalManager.ctx.drawImage(parlorScene.background, 0, 0);
+        
         parlorScene.drawCitizens();
     };
 

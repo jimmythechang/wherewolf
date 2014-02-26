@@ -6,6 +6,8 @@
 
 function DrawManager() {
     this.currentScene = null;
+    
+    this.imgArray = new Array();
 
     this.draw = function() {
         this.clearScreen();

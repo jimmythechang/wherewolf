@@ -17,7 +17,13 @@ function GlobalManager() {
     };
 
     this.setUpScenes = function() {
+        
+        this.loadingScreen = new LoadingScene();
+        
         this.titleScreen = new Scene("WHEREWOLF - Click to Continue");
+        
+        this.loadingScreen.setNextScene(this.titleScreen);
+        
         this.explanationScreen1 = new Scene("There is an EPIDEMIC");
         this.explanationScreen2 = new Scene("And the only way to cure it is BULLET");
 
@@ -26,6 +32,8 @@ function GlobalManager() {
         this.titleScreen.setNextScene(this.explanationScreen1);
         this.explanationScreen1.setNextScene(this.explanationScreen2);
         this.explanationScreen2.setNextScene(this.mapScene);
+        
+        this.loadingScreen.init();
     };
 
 

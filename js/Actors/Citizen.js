@@ -1,5 +1,21 @@
 /**
  * A class for handling the display and logic for a Citizen.
+ * 
+ * x - x-position of Citizen
+ * y - y-position of Citizen
+ * 
+ * TODO: do not pass in paths, but loaded Image objects.
+ * 
+ * idleSrc - path to idle image
+ * shockedSrc - path to shocked image
+ * wherewolfSrc - path to Wherewolf image
+ * 
+ * deadSrc - path to dead image
+ * deadWherewolfSrc - path to dead Wherewolf image
+ * 
+ * puzzleStatement - a JSON object containing the Citizen's statement and Wherewolf-ness (whether (s)he is or is not the Wherewolf)
+ * textbox - a reference to the global Textbox used to display all statements 
+ * 
  */
 
 
