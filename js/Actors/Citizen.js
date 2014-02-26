@@ -19,7 +19,7 @@
  */
 
 
-function Citizen(x, y, idleImg, shockedImg, wherewolfImg, deadImg, deadWherewolfImg, puzzleStatement, textbox) {
+function Citizen(x, y, idleImg, shockedImg, wherewolfImg, xDead, yDead, deadImg, deadWherewolfImg, puzzleStatement, textbox) {
 
     var clickable = new Clickable(x, y);
     var citizen = this.extend(clickable);
@@ -28,26 +28,22 @@ function Citizen(x, y, idleImg, shockedImg, wherewolfImg, deadImg, deadWherewolf
 
     // Contains the pixel data in the image used
     // for the citizen.
+    
+    citizen.xDead = xDead;
+    citizen.yDead = yDead;
 
     citizen.idleImgData = null;
     citizen.idleImg = idleImg;
+    citizen.shockedImg = shockedImg;
+    citizen.wherewolfImg = wherewolfImg;
+    citizen.deadImg = deadImg;
+    citizen.deadWherewolfImg = deadWherewolfImg;
+    
+    citizen.currentImg = citizen.idleImg;
     
     citizen.idleImgData = getImageData(citizen.idleImg);
     citizen.boundingWidth = citizen.idleImg.width;
     citizen.boundingHeight = citizen.idleImg.height;
-    
-    // citizen.imageLoaded = false;
-    
-    /*
-    citizen.image.onload = function() {
-        citizen.imageLoaded = true;
-        citizen.idleImgData = getImageData(this);
-
-        citizen.boundingWidth = citizen.image.width;
-        citizen.boundingHeight = citizen.image.height;
-    }
-    citizen.image.src = imageSrc;
-    */
 
     citizen.statement = puzzleStatement.statement;
     citizen.isWherewolf = puzzleStatement.isWherewolf;
@@ -56,7 +52,7 @@ function Citizen(x, y, idleImg, shockedImg, wherewolfImg, deadImg, deadWherewolf
     citizen.isTalking = false;
 
     citizen.draw = function() {
-        window.globalManager.ctx.drawImage(citizen.idleImg, citizen.x, citizen.y);
+        window.globalManager.ctx.drawImage(citizen.currentImg, citizen.x, citizen.y);
         
         if (citizen.isTalking) {
             citizen.textbox.draw();
@@ -72,6 +68,12 @@ function Citizen(x, y, idleImg, shockedImg, wherewolfImg, deadImg, deadWherewolf
     citizen.shutUp = function() {
         citizen.isTalking = false;
     };
+
+    citizen.shootDead = function() {
+        citizen.currentImg = citizen.deadImg;
+        citizen.x = citizen.xDead;
+        citizen.y = citizen.yDead;
+    }
 
     /**
      * Determine if the player is hovering over/clicking a solid pixel.

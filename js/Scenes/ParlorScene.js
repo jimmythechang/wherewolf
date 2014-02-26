@@ -26,19 +26,19 @@ function ParlorScene(puzzle) {
 
     parlorScene.init = function() {
         var citizen = new Citizen(50, 178, this.getImage('guest_a_idle'), this.getImage('guest_a_shocked'), this.getImage('guest_a_wherewolf'),
-                                  this.getImage('guest_a_dead'), this.getImage('guest_a_dead_wherewolf'), parlorScene.puzzle.statements[0], parlorScene.textbox);
+                                  50, 293, this.getImage('guest_a_dead'), this.getImage('guest_a_dead_wherewolf'), parlorScene.puzzle.statements[0], parlorScene.textbox);
         parlorScene.registerCitizen(citizen);
 
         var citizen2 = new Citizen(260, 145, this.getImage('guest_b_idle'), this.getImage('guest_b_shocked'), this.getImage('guest_b_wherewolf'),
-                                  this.getImage('guest_b_dead'), this.getImage('guest_b_dead_wherewolf'), parlorScene.puzzle.statements[1], parlorScene.textbox);
+                                  266, 134, this.getImage('guest_b_dead'), this.getImage('guest_b_dead_wherewolf'), parlorScene.puzzle.statements[1], parlorScene.textbox);
         parlorScene.registerCitizen(citizen2);
         
         var citizen3 = new Citizen(480, 133, this.getImage('guest_c_idle'), this.getImage('guest_c_shocked'), this.getImage('guest_c_wherewolf'),
-                                  this.getImage('guest_c_dead'), this.getImage('guest_c_dead_wherewolf'), parlorScene.puzzle.statements[2], parlorScene.textbox);
+                                  480, 126, this.getImage('guest_c_dead'), this.getImage('guest_c_dead_wherewolf'), parlorScene.puzzle.statements[2], parlorScene.textbox);
         parlorScene.registerCitizen(citizen3);
         
         var citizen4 = new Citizen(650, 105, this.getImage('guest_d_idle'), this.getImage('guest_d_shocked'), this.getImage('guest_d_wherewolf'),
-                                  this.getImage('guest_d_dead'), this.getImage('guest_d_dead_wherewolf'), parlorScene.puzzle.statements[3], parlorScene.textbox);
+                                  580, 158, this.getImage('guest_d_dead'), this.getImage('guest_d_dead_wherewolf'), parlorScene.puzzle.statements[3], parlorScene.textbox);
         parlorScene.registerCitizen(citizen4);
 
     };
@@ -102,7 +102,7 @@ function ParlorScene(puzzle) {
             var mapScene = window.globalManager.mapScene;
 
             if (parlorScene.targetedCitizen.isWherewolf) {
-                $('#clickDebug').text('Wherewolf found!');
+                //parlorScene.targetedCitizen.
 
                 // TODO: Animate the death of the Wherewolf...
 
@@ -117,15 +117,15 @@ function ParlorScene(puzzle) {
                 
             }
             else {
-                $('#clickDebug').text('You shot a citizen in the face');
+                parlorScene.targetedCitizen.shootDead();
 
                 var text = "You shot a citizen in the face.";
                 var scene = new Scene(text);
-                scene.setNextScene(mapScene);
-                parlorScene.setNextScene(scene);
+                //scene.setNextScene(mapScene);
+                //parlorScene.setNextScene(scene);
             }
 
-            parlorScene.showNextScene();
+            //parlorScene.showNextScene();
         }
         else {
             $('#clickDebug').text("Nothing but air!");
