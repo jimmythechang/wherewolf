@@ -6,12 +6,12 @@
  * 
  * TODO: do not pass in paths, but loaded Image objects.
  * 
- * idleSrc - path to idle image
- * shockedSrc - path to shocked image
- * wherewolfSrc - path to Wherewolf image
+ * idleImg - idle Image
+ * shockedImg - shocked Image
+ * wherewolfImg - Wherewolf Image
  * 
- * deadSrc - path to dead image
- * deadWherewolfSrc - path to dead Wherewolf image
+ * deadImg - dead Image
+ * deadWherewolfImg - dead Wherewolf Image
  * 
  * puzzleStatement - a JSON object containing the Citizen's statement and Wherewolf-ness (whether (s)he is or is not the Wherewolf)
  * textbox - a reference to the global Textbox used to display all statements 
@@ -19,7 +19,7 @@
  */
 
 
-function Citizen(x, y, imageSrc, puzzleStatement, textbox) {
+function Citizen(x, y, idleImg, shockedImg, wherewolfImg, deadImg, deadWherewolfImg, puzzleStatement, textbox) {
 
     var clickable = new Clickable(x, y);
     var citizen = this.extend(clickable);
@@ -29,17 +29,25 @@ function Citizen(x, y, imageSrc, puzzleStatement, textbox) {
     // Contains the pixel data in the image used
     // for the citizen.
 
-    citizen.imageData = null;
-    citizen.image = new Image();
-    citizen.imageLoaded = false;
+    citizen.idleImgData = null;
+    citizen.idleImg = idleImg;
+    
+    citizen.idleImgData = getImageData(citizen.idleImg);
+    citizen.boundingWidth = citizen.idleImg.width;
+    citizen.boundingHeight = citizen.idleImg.height;
+    
+    // citizen.imageLoaded = false;
+    
+    /*
     citizen.image.onload = function() {
         citizen.imageLoaded = true;
-        citizen.imageData = getImageData(this);
+        citizen.idleImgData = getImageData(this);
 
         citizen.boundingWidth = citizen.image.width;
         citizen.boundingHeight = citizen.image.height;
     }
     citizen.image.src = imageSrc;
+    */
 
     citizen.statement = puzzleStatement.statement;
     citizen.isWherewolf = puzzleStatement.isWherewolf;
@@ -48,18 +56,11 @@ function Citizen(x, y, imageSrc, puzzleStatement, textbox) {
     citizen.isTalking = false;
 
     citizen.draw = function() {
-        if (citizen.imageLoaded) {
-            window.globalManager.ctx.drawImage(citizen.image, citizen.x, citizen.y);
-        }
-        else {
-            return;
-        }
-
+        window.globalManager.ctx.drawImage(citizen.idleImg, citizen.x, citizen.y);
         
         if (citizen.isTalking) {
             citizen.textbox.draw();
         }
-        
     };
 
     citizen.talk = function() {
@@ -76,9 +77,9 @@ function Citizen(x, y, imageSrc, puzzleStatement, textbox) {
      * Determine if the player is hovering over/clicking a solid pixel.
      */
 
-    citizen.solidPixelTargeted = function(mouseX, mouseY, parlorScene) {
-        var imageWidth = citizen.image.width;
-        var imageData = citizen.imageData;
+    citizen.solidPixelTargeted = function(mouseX, mouseY) {
+        var imageWidth = citizen.boundingWidth;
+        var imageData = citizen.idleImgData;
 
         // Subtract the offset of where the Citizen's been placed
         // on the canvas.

@@ -30,4 +30,9 @@ function Scene(text) {
     this.showNextScene = function() {
         this.drawManager.loadScene(this.nextScene);
     }
+    
+    // Retrieves an image from the DrawManager's loaded imgArray.
+    this.getImage = function(name) {
+        return this.drawManager.imgArray[name];
+    }
 }

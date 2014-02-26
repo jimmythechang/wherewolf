@@ -41,7 +41,7 @@ function LoadingScene() {
             loadingScene.loadingText = imageJson.name;
             
             loadingScene.assetsLoaded++;
-            
+            console.log(loadingScene.assetsLoaded);
             if (loadingScene.assetsLoaded == images.length) {
                 // All our images have been loaded; continue!
                 loadingScene.loadingText = "Loaded!";

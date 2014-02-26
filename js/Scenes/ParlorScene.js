@@ -13,8 +13,8 @@ function ParlorScene(puzzle) {
     
     // Background.
     
-    parlorScene.background = new Image();
-    parlorScene.background.src = '/wherewolf/img/background.png';
+    parlorScene.background = parlorScene.getImage('background');
+    //parlorScene.background.src = '/wherewolf/img/background.png';
 
     // Keeps track of the Citizens present.
 
@@ -25,16 +25,20 @@ function ParlorScene(puzzle) {
     parlorScene.targetedCitizen = null;
 
     parlorScene.init = function() {
-        var citizen = new Citizen(50, 178, '/wherewolf/img/guest_a_idle.png', parlorScene.puzzle.statements[0], parlorScene.textbox);
+        var citizen = new Citizen(50, 178, this.getImage('guest_a_idle'), this.getImage('guest_a_shocked'), this.getImage('guest_a_wherewolf'),
+                                  this.getImage('guest_a_dead'), this.getImage('guest_a_dead_wherewolf'), parlorScene.puzzle.statements[0], parlorScene.textbox);
         parlorScene.registerCitizen(citizen);
 
-        var citizen2 = new Citizen(260, 145, '/wherewolf/img/guest_b_idle.png', parlorScene.puzzle.statements[1], parlorScene.textbox);
+        var citizen2 = new Citizen(260, 145, this.getImage('guest_b_idle'), this.getImage('guest_b_shocked'), this.getImage('guest_b_wherewolf'),
+                                  this.getImage('guest_b_dead'), this.getImage('guest_b_dead_wherewolf'), parlorScene.puzzle.statements[1], parlorScene.textbox);
         parlorScene.registerCitizen(citizen2);
         
-        var citizen3 = new Citizen(480, 133, '/wherewolf/img/guest_c_idle.png', parlorScene.puzzle.statements[2], parlorScene.textbox);
+        var citizen3 = new Citizen(480, 133, this.getImage('guest_c_idle'), this.getImage('guest_c_shocked'), this.getImage('guest_c_wherewolf'),
+                                  this.getImage('guest_c_dead'), this.getImage('guest_c_dead_wherewolf'), parlorScene.puzzle.statements[2], parlorScene.textbox);
         parlorScene.registerCitizen(citizen3);
         
-        var citizen4 = new Citizen(650, 105, '/wherewolf/img/guest_d_idle.png', parlorScene.puzzle.statements[3], parlorScene.textbox);
+        var citizen4 = new Citizen(650, 105, this.getImage('guest_d_idle'), this.getImage('guest_d_shocked'), this.getImage('guest_d_wherewolf'),
+                                  this.getImage('guest_d_dead'), this.getImage('guest_d_dead_wherewolf'), parlorScene.puzzle.statements[3], parlorScene.textbox);
         parlorScene.registerCitizen(citizen4);
 
     };
@@ -49,7 +53,6 @@ function ParlorScene(puzzle) {
         // Draw the background.
         
         window.globalManager.ctx.drawImage(parlorScene.background, 0, 0);
-        
         parlorScene.drawCitizens();
     };
 
