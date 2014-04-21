@@ -9,7 +9,7 @@ Object.prototype.extend = function(o) {
 
 
 var requireArr = ["jquery", "Managers/GlobalManager", "Randomizer", "Managers/MouseHandler", 
-                  "Managers/DrawManager", "Actors/Clickable", "Actors/Puzzle", "Actors/Citizen", "Actors/Textbox", "Scenes/Scene",
+                  "Managers/DrawManager", "Actors/Clickable", "Actors/Puzzle", "Actors/Citizen", "Actors/Sky", "Actors/Textbox", "Scenes/Scene",
                   "Scenes/ParlorScene", "Scenes/MapScene", "Scenes/LoadingScene", "Puzzles", "Images"];
 
 require(requireArr, function($) {

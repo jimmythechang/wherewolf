@@ -20,7 +20,7 @@ function Puzzle(town, x, y, statementArr) {
         ctx.arc(puzzle.x + puzzle.radius, puzzle.y + puzzle.radius, puzzle.radius, 0, 2 * Math.PI, false);
         ctx.fillStyle = 'blue';
         ctx.fill();
-    }
+    };
 
     return puzzle;
 }

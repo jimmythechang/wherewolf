@@ -11,10 +11,21 @@ function ParlorScene(puzzle) {
     parlorScene.textbox = new Textbox();
     parlorScene.puzzle = puzzle;
     
-    // Background.
+    parlorScene.clickEnabled = true;
     
+    // The scene is updated 30 times a second, so
+    // multiply seconds by 30 in order to determine your
+    // desired maxTime.
+    parlorScene.maxTime = 3600;
+    
+    // The currentTime ticks from the maxTime down to zero.
+    parlorScene.currentTime = parlorScene.maxTime;
+    
+    // Background.
     parlorScene.background = parlorScene.getImage('background');
-    //parlorScene.background.src = '/wherewolf/img/background.png';
+    
+    // Sky.
+    parlorScene.sky = new Sky(100, 48, 635, 260, parlorScene.maxTime);
 
     // Keeps track of the Citizens present.
 
@@ -25,13 +36,13 @@ function ParlorScene(puzzle) {
     parlorScene.targetedCitizen = null;
 
     parlorScene.init = function() {
+        var citizen2 = new Citizen(266, 109, this.getImage('guest_b_idle'), this.getImage('guest_b_shocked'), this.getImage('guest_b_wherewolf'),
+                                  266, 134, this.getImage('guest_b_dead'), this.getImage('guest_b_dead_wherewolf'), parlorScene.puzzle.statements[1], parlorScene.textbox);
+        parlorScene.registerCitizen(citizen2);
+        
         var citizen = new Citizen(50, 178, this.getImage('guest_a_idle'), this.getImage('guest_a_shocked'), this.getImage('guest_a_wherewolf'),
                                   50, 293, this.getImage('guest_a_dead'), this.getImage('guest_a_dead_wherewolf'), parlorScene.puzzle.statements[0], parlorScene.textbox);
         parlorScene.registerCitizen(citizen);
-
-        var citizen2 = new Citizen(260, 145, this.getImage('guest_b_idle'), this.getImage('guest_b_shocked'), this.getImage('guest_b_wherewolf'),
-                                  266, 134, this.getImage('guest_b_dead'), this.getImage('guest_b_dead_wherewolf'), parlorScene.puzzle.statements[1], parlorScene.textbox);
-        parlorScene.registerCitizen(citizen2);
         
         var citizen3 = new Citizen(480, 133, this.getImage('guest_c_idle'), this.getImage('guest_c_shocked'), this.getImage('guest_c_wherewolf'),
                                   480, 126, this.getImage('guest_c_dead'), this.getImage('guest_c_dead_wherewolf'), parlorScene.puzzle.statements[2], parlorScene.textbox);
@@ -40,7 +51,6 @@ function ParlorScene(puzzle) {
         var citizen4 = new Citizen(650, 105, this.getImage('guest_d_idle'), this.getImage('guest_d_shocked'), this.getImage('guest_d_wherewolf'),
                                   580, 158, this.getImage('guest_d_dead'), this.getImage('guest_d_dead_wherewolf'), parlorScene.puzzle.statements[3], parlorScene.textbox);
         parlorScene.registerCitizen(citizen4);
-
     };
 
     // Add a new Citizen to the Citizen Array.
@@ -50,10 +60,16 @@ function ParlorScene(puzzle) {
     };
 
     parlorScene.show = function() {
-        // Draw the background.
+        parlorScene.currentTime--;
+        parlorScene.sky.setCurrentTime(parlorScene.currentTime);
         
+        // Set down the sky first.
+        parlorScene.sky.draw();
+        
+        // Draw the background.
         window.globalManager.ctx.drawImage(parlorScene.background, 0, 0);
         parlorScene.drawCitizens();
+        
     };
 
     // Draw all the registered Citizens.
@@ -94,14 +110,47 @@ function ParlorScene(puzzle) {
     };
 
     parlorScene.mouseMove = function(mouseX, mouseY) {
-        parlorScene.determineCitizenIsInRange(mouseX, mouseY);
-    }
+        if (parlorScene.clickEnabled) {
+            parlorScene.determineCitizenIsInRange(mouseX, mouseY);
+        }
+    };
 
     parlorScene.click = function() {
-        if (parlorScene.targetedCitizen != null) {
+        if (parlorScene.clickEnabled && parlorScene.targetedCitizen != null) {
             var mapScene = window.globalManager.mapScene;
+            parlorScene.reveal();
 
-            if (parlorScene.targetedCitizen.isWherewolf) {
+            //parlorScene.showNextScene();
+        }
+    };
+    
+    parlorScene.reveal = function() {
+            
+           for (var i = 0; i < parlorScene.citizenArray.length; i++) {
+               var citizen = parlorScene.citizenArray[i];
+            
+               if (citizen == parlorScene.targetedCitizen) {
+                   if (citizen.isWherewolf) {
+                       citizen.shootDead(true);
+                   }
+                   else {
+                       citizen.shootDead(false);
+                   }
+               }
+               else {
+                   if (citizen.isWherewolf) {
+                       citizen.currentImg = citizen.wherewolfImg;
+                   }
+                   else {
+                       citizen.currentImg = citizen.shockedImg;
+                   }
+               }
+               
+               parlorScene.clickEnabled = false;
+           }
+        
+        /*
+           if (parlorScene.targetedCitizen.isWherewolf) {
                 //parlorScene.targetedCitizen.
 
                 // TODO: Animate the death of the Wherewolf...
@@ -124,12 +173,7 @@ function ParlorScene(puzzle) {
                 //scene.setNextScene(mapScene);
                 //parlorScene.setNextScene(scene);
             }
-
-            //parlorScene.showNextScene();
-        }
-        else {
-            $('#clickDebug').text("Nothing but air!");
-        }
+            */
     };
 
     return parlorScene;

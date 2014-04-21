@@ -69,11 +69,17 @@ function Citizen(x, y, idleImg, shockedImg, wherewolfImg, xDead, yDead, deadImg,
         citizen.isTalking = false;
     };
 
-    citizen.shootDead = function() {
-        citizen.currentImg = citizen.deadImg;
+    citizen.shootDead = function(isWherewolf) {
+        if (isWherewolf) {
+            citizen.currentImg = citizen.deadWherewolfImg;
+        }
+        else {
+            citizen.currentImg = citizen.deadImg;
+        }
+    
         citizen.x = citizen.xDead;
         citizen.y = citizen.yDead;
-    }
+    };
 
     /**
      * Determine if the player is hovering over/clicking a solid pixel.
